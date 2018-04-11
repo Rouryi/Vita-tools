@@ -11,8 +11,8 @@ base = "https://store.playstation.com/ja-jp/grid/JP0507-PCSG00418_00-00000000000
 path = 'DLC'
 
 
-def get_dlc(url):
-    res = requests.get(url, headers=headers, allow_redirects=False)
+def get_dlc(url, game_id):
+    res = requests.get(url, allow_redirects=False)
     if res.status_code == 200:
         soup = BeautifulSoup(res.text, 'lxml')
 
@@ -24,17 +24,19 @@ def get_dlc(url):
             if temp not in dlc:
                 print(temp)
                 dlc.append(temp)
-                os.mkdir(path + "\\" + temp)
-                # print(path + "\\" + temp)
+                os.makedirs(path + "\\" + game_id + "\\addcont\\" + temp)
+                # print(path + "\\" + game_id + "\\addcont\\" + temp)
     else:
         return -1
 
 
 def main():
-    for i in range(1, 100):
+    game_id = base[48:57]
+    print(game_id)
+    for i in range(1):
         url = base[:-22] + str(i) + "?relationship=add-ons"
         # print(url)
-        if get_dlc(url) == -1:
+        if get_dlc(url, game_id) == -1:
             break
 
 
