@@ -4,13 +4,15 @@
 import requests
 from bs4 import BeautifulSoup
 import re
+import os
 
 # アクセスするURL
 base = "https://store.playstation.com/ja-jp/grid/JP0507-PCSG00418_00-0000000000000000/1?relationship=add-ons"
+path = 'DLC'
 
 
 def get_dlc(url):
-    res = requests.get(url, allow_redirects=False)
+    res = requests.get(url, headers=headers, allow_redirects=False)
     if res.status_code == 200:
         soup = BeautifulSoup(res.text, 'lxml')
 
@@ -22,6 +24,8 @@ def get_dlc(url):
             if temp not in dlc:
                 print(temp)
                 dlc.append(temp)
+                os.mkdir(path + "\\" + temp)
+                # print(path + "\\" + temp)
     else:
         return -1
 
