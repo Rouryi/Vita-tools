@@ -8,6 +8,9 @@ import os
 
 # アクセスするURL
 base = "https://store.playstation.com/ja-jp/grid/JP0507-PCSG00418_00-0000000000000000/1?relationship=add-ons"
+# DLする場所
+# C:\Users\MYNAME\Downloadなら
+# path = os.path.expanduser('~\Download')
 path = 'DLC'
 
 
@@ -20,7 +23,7 @@ def get_dlc(url, game_id):
 
         dlc = []
         for e in elems:
-            temp = e.get('href')[15:]
+            temp = e.get('href')[35:]
             if temp not in dlc:
                 print(temp)
                 dlc.append(temp)
